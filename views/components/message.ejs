@@ -1,6 +1,10 @@
-<div>
+<div class="message-cont">
   <h3><%= message.title %></h3>
   <p><%= message.body %></p>
-  <p><%= message.author %></p>
+  <p><span><%= message.firstname %></span> <span><%= message.lastname %></span></p>
   <p><%= message.timestamp %></p>
+  <a href="/message/<%= message.id %>/edit"><button type="submit">Edit</button></a>
+  <form action="/message/<%= message.id %>/delete" method="POST">
+    <button type="submit">Delete</button>
+  </form>
 </div>

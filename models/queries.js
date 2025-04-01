@@ -3,7 +3,10 @@ const pool = require("./pool");
 async function getAllMessages() {
   const query = {
     text: `
-            SELECT * FROM Messages;
+            SELECT firstname, lastname, messages.id, title, body, timestamp FROM Messages
+            INNER JOIN Users
+              ON Messages.user_id = Users.id
+            ORDER BY Timestamp ASC;
         `,
   };
   const { rows } = await pool.query(query);
@@ -22,7 +25,44 @@ async function getMessageById(id) {
   return rows[0];
 }
 
+async function deleteMessageById(id) {
+  const query = {
+    text: `
+      DELETE FROM Messages
+      WHERE id = $1;
+    `,
+    values: [id],
+  };
+  await pool.query(query);
+}
+
+async function createMessage(title, body, userId = 1) {
+  const query = {
+    text: `
+      INSERT INTO Messages ("user_id", "title", "body")
+      VALUES ($1, $2, $3);
+    `,
+    values: [userId, title, body],
+  };
+  await pool.query(query);
+}
+
+async function updateMessageById(title, body, id) {
+  const query = {
+    text: `
+      UPDATE Messages
+      SET title = $1, body = $2
+      WHERE id = $3;
+    `,
+    values: [title, body, id],
+  };
+  await pool.query(query);
+}
+
 module.exports = {
   getAllMessages,
   getMessageById,
+  deleteMessageById,
+  createMessage,
+  updateMessageById,
 };
