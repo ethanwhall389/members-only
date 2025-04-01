@@ -1,6 +1,5 @@
 const joinClubPageGet = async (req, res) => {
-  //   res.render("Home page");
-  res.send("join club");
+  res.render("./pages/joinClub");
 };
 
 const joinClubPost = async (req, res) => {

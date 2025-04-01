@@ -1,6 +1,5 @@
 const logInPageGet = async (req, res) => {
-  //   res.render("Home page");
-  res.send("log in");
+  res.render("./pages/logIn");
 };
 
 const logInPost = async (req, res) => {

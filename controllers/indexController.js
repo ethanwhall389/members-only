@@ -1,6 +1,8 @@
+const queries = require("../models/queries");
+
 const indexPageGet = async (req, res) => {
-  //   res.render("Home page");
-  res.send("Home page");
+  const messages = await queries.getAllMessages();
+  res.render("./pages/index", { messages: messages });
 };
 
 module.exports = {

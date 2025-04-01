@@ -1,0 +1,30 @@
+html {
+  background-color: rgb(42, 61, 60);
+  color: white;
+  padding: 25px;
+}
+
+p,
+span,
+label {
+  font-size: 20px;
+}
+
+ul,
+ol {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+form > ul {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  gap: 10px;
+}
+
+form > ul > li {
+  display: flex;
+  flex-direction: column;
+}

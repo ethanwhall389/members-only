@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/main.css">
+  <title>New Message</title>
+</head>
+
+<body>
+  <h1>New message</h1>
+  <form action="/message/new" method="POST">
+    <ul>
+      <li>
+        <label for="title">Message title</label>
+        <input type="text" name="title" id="title">
+      </li>
+      <li>
+        <label for="body">Message body</label>
+        <input type="text" name="body" id="body">
+      </li>
+    </ul>
+    <button type="submit">Post message</button>
+  </form>
+</body>
+
+</html>

@@ -1,16 +1,22 @@
+const queries = require("../models/queries");
+
 const messagePageGet = async (req, res) => {
-  //   res.render("Home page");
-  res.send("message");
+  res.render("./pages/messageNew");
 };
 
-const messagePost = async (req, res) => {};
+const messagePost = async (req, res) => {
+  res.redirect("/");
+};
 
 const messageEditPageGet = async (req, res) => {
   const id = req.params.messageId;
-  res.send(`edit message: ${id}`);
+  const message = await queries.getMessageById(id);
+  res.render("./pages/messageEdit", { message: message });
 };
 
-const messageEditPost = async (req, res) => {};
+const messageEditPost = async (req, res) => {
+  res.render("./pages/messageEdit");
+};
 
 const messageDeletePost = async (req, res) => {};
 

@@ -1,6 +1,5 @@
 const signUpPageGet = async (req, res) => {
-  //   res.render("Home page");
-  res.send("sign up");
+  res.render("./pages/signUp");
 };
 
 const signUpPost = async (req, res) => {
