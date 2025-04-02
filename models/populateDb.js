@@ -26,6 +26,14 @@ const SQL = `
         
     );
 
+    CREATE TABLE IF NOT EXISTS Clubs (
+        "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+        "name" VARCHAR(255),
+        "description" TEXT,
+        "password" VARCHAR(255),
+        "timestamp" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
     INSERT INTO Users ("username", "firstname", "lastname", "password", "is_member", "is_admin")
     VALUES
         ('ethanwhall', 'Ethan', 'Hall', '12345', FALSE, FALSE),
@@ -35,6 +43,9 @@ const SQL = `
     VALUES
         (1, 'Hello, world!', 'Hi everyone! so glad to be here writing this message!'),
         (2, 'Hi everyone!!', 'This seems like a pretty cool place!');
+    
+    INSERT INTO Clubs ("name", "description", "password")
+    VALUES ('Super Secret Club', 'Where you get to see the authors of messages and the dates they were written', 'secret_club_12345');
 `;
 
 async function seed() {
