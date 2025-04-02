@@ -59,10 +59,22 @@ async function updateMessageById(title, body, id) {
   await pool.query(query);
 }
 
+async function createUser(firstName, lastName, username, password, isAdmin) {
+  const query = {
+    text: `
+      INSERT INTO Users ("firstname", "lastname", "username", "password", "is_admin", "is_member")
+      VALUES ($1, $2, $3, $4, $5, FALSE);
+    `,
+    values: [firstName, lastName, username, password, isAdmin ? true : false],
+  };
+  await pool.query(query);
+}
+
 module.exports = {
   getAllMessages,
   getMessageById,
   deleteMessageById,
   createMessage,
   updateMessageById,
+  createUser,
 };
