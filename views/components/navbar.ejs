@@ -1,6 +1,9 @@
 <nav>
+  <% if (!locals.user) { %>
   <a href="/sign-up"><button>Sign up</button></a>
   <a href="/log/in"><button>Log in</button></a>
+  <% } else { %>
   <a href="/log/out"><button>Log out</button></a>
   <a href="/join-club"><button>Join the club</button></a>
+  <% } %>
 </nav>

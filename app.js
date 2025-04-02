@@ -29,6 +29,12 @@ app.use(session({ secret: "secret", resave: false, saveUninitialized: false }));
 // Initialize session
 app.use(passport.session());
 
+//makes locals.user available to all views without needing to be passed down
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
+
 app.use("/", indexRouter);
 app.use("/sign-up", signUpRouter);
 app.use("/log", authRouter);
