@@ -5,7 +5,7 @@ const session = require("express-session");
 
 const indexRouter = require("./routes/indexRouter");
 const signUpRouter = require("./routes/signUpRouter");
-const logInRouter = require("./routes/logInRouter");
+const authRouter = require("./routes/authRouter");
 const joinClubRouter = require("./routes/joinClubRouter");
 const messageRouter = require("./routes/messageRouter");
 
@@ -27,7 +27,7 @@ app.use(passport.session());
 
 app.use("/", indexRouter);
 app.use("/sign-up", signUpRouter);
-app.use("/log-in", logInRouter);
+app.use("/log", authRouter);
 app.use("/join-club", joinClubRouter);
 app.use("/message", messageRouter);
 //404 route
