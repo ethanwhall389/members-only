@@ -1,3 +1,4 @@
+const { text } = require("express");
 const pool = require("./pool");
 
 async function getAllMessages() {
@@ -108,6 +109,31 @@ async function createUser(firstName, lastName, username, password, isAdmin) {
   await pool.query(query);
 }
 
+async function updateUserClubStatus(isMember, id) {
+  console.log(`UserId: ${id}`);
+  const query = {
+    text: `
+      UPDATE Users
+      SET "is_member" = $1
+      WHERE id = $2;
+    `,
+    values: [isMember, id],
+  };
+  await pool.query(query);
+}
+
+async function getClubById(id) {
+  const query = {
+    text: `
+      SELECT * FROM Clubs
+      WHERE id = $1;
+    `,
+    values: [id],
+  };
+  const { rows } = await pool.query(query);
+  return rows[0];
+}
+
 module.exports = {
   getAllMessages,
   getMessageById,
@@ -118,4 +144,6 @@ module.exports = {
   userExistsUsername,
   getUserByUsername,
   getUserById,
+  getClubById,
+  updateUserClubStatus,
 };
