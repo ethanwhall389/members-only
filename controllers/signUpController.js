@@ -1,5 +1,6 @@
 const { body, validationResult } = require("express-validator");
 const queries = require("../models/queries");
+const bcrypt = require("bcryptjs");
 
 const alphaErr = "must only contain letters.";
 const lengthErr = "must be between 1 and 10 characters.";
@@ -34,10 +35,6 @@ const validateUser = [
     .trim()
     .isLength({ min: 8, max: 25 })
     .withMessage(`Password must be between 8 and 26 characters.`)
-    .matches(/[A-Z]/)
-    .withMessage(`Password must contain at least one uppercase letter.`)
-    .matches(/[a-z]/)
-    .withMessage(`Password must contain at least one lowercase letter.`)
     .matches(/[@$!%*?&^]/)
     .withMessage(`Password must contain at least one special character.`)
     .not()
@@ -78,6 +75,7 @@ const signUpPost = [
     }
 
     const { firstName, lastName, username, password, isAdmin } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
     const { exists } = await queries.userExistsUsername(username);
     if (exists) {
       return res.render("./pages/signUp", {
@@ -88,7 +86,7 @@ const signUpPost = [
         firstName,
         lastName,
         username,
-        password,
+        hashedPassword,
         isAdmin
       );
       res.redirect("/");
