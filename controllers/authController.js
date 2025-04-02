@@ -15,7 +15,8 @@ const validateUser = [
 ];
 
 const logInPageGet = async (req, res) => {
-  res.render("./pages/logIn");
+  const errors = req.flash("error");
+  res.render("./pages/logIn", { errors: errors });
 };
 
 const logInPost = [
@@ -24,7 +25,8 @@ const logInPost = [
     console.log("log-in attempt");
     passport.authenticate("local", {
       successRedirect: "/",
-      failureRedirect: "/log-in",
+      failureRedirect: "/log/in",
+      failureFlash: true,
     })(req, res, next);
   },
 ];

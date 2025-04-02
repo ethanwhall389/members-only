@@ -10,6 +10,11 @@
 
 <body>
   <h1>Log in</h1>
+  <% if (locals.errors) { %>
+  <% errors.forEach((error) => { %>
+  <p><%= error %></p>
+  <% }) %>
+  <% } %>
   <form action="/log/in" method="POST">
     <ul>
       <li>
@@ -18,7 +23,7 @@
       </li>
       <li>
         <label for="password">Password</label>
-        <input type="text" name="password" id="password">
+        <input type="password" name="password" id="password">
       </li>
     </ul>
     <button type="submit">Log in</button>
