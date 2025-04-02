@@ -59,6 +59,20 @@ async function updateMessageById(title, body, id) {
   await pool.query(query);
 }
 
+async function userExistsUsername(username) {
+  const query = {
+    text: `
+      SELECT EXISTS (
+        SELECT 1 FROM Users
+        WHERE username = $1  
+      );
+    `,
+    values: [username],
+  };
+  const { rows } = await pool.query(query);
+  return rows[0];
+}
+
 async function createUser(firstName, lastName, username, password, isAdmin) {
   const query = {
     text: `
@@ -77,4 +91,5 @@ module.exports = {
   createMessage,
   updateMessageById,
   createUser,
+  userExistsUsername,
 };

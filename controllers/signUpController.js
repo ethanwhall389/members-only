@@ -69,23 +69,32 @@ const signUpPageGet = async (req, res) => {
 const signUpPost = [
   validateUser,
   async (req, res) => {
-    console.log(req.body.isAdmin);
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
-      console.log(errors.array());
       return res
         .status(400)
         .render("./pages/signUp", { errors: errors.array() });
     }
+
     const { firstName, lastName, username, password, isAdmin } = req.body;
-    await queries.createUser(firstName, lastName, username, password, isAdmin);
-    res.redirect("/");
+    const { exists } = await queries.userExistsUsername(username);
+    if (exists) {
+      return res.render("./pages/signUp", {
+        errors: [{ msg: "A user with that email already exists." }],
+      });
+    } else {
+      await queries.createUser(
+        firstName,
+        lastName,
+        username,
+        password,
+        isAdmin
+      );
+      res.redirect("/");
+    }
   },
 ];
-
-// const signUpPost = async (req, res) => {
-//   console.log(req.body);
-// };
 
 module.exports = {
   signUpPageGet,
