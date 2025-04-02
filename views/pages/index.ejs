@@ -12,6 +12,9 @@
   <%- include('../components/navbar') %>
 
   <h1>Members Only</h1>
+  <% if(locals.user) { %>
+  <h3>Welcome, <%= user.firstname %></h3>
+  <% } %>
   <% if(locals.messages) { %>
   <div>
     <% messages.forEach((message) => { %>

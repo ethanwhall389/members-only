@@ -73,6 +73,30 @@ async function userExistsUsername(username) {
   return rows[0];
 }
 
+async function getUserByUsername(username) {
+  const query = {
+    text: `
+      SELECT * FROM Users
+      WHERE "username" = $1;
+    `,
+    values: [username],
+  };
+  const { rows } = await pool.query(query);
+  return rows[0];
+}
+
+async function getUserById(id) {
+  const query = {
+    text: `
+      SELECT * FROM Users
+      WHERE "id" = $1;
+    `,
+    values: [id],
+  };
+  const { rows } = await pool.query(query);
+  return rows[0];
+}
+
 async function createUser(firstName, lastName, username, password, isAdmin) {
   const query = {
     text: `
@@ -92,4 +116,6 @@ module.exports = {
   updateMessageById,
   createUser,
   userExistsUsername,
+  getUserByUsername,
+  getUserById,
 };

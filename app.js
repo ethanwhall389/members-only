@@ -1,5 +1,7 @@
 const express = require("express");
 const path = require("path");
+const passport = require("passport");
+const session = require("express-session");
 
 const indexRouter = require("./routes/indexRouter");
 const signUpRouter = require("./routes/signUpRouter");
@@ -17,6 +19,11 @@ const assetsPath = path.join(__dirname, "public");
 app.use(express.static(assetsPath));
 
 app.use(express.urlencoded({ extended: true }));
+
+// Configure session middleware
+app.use(session({ secret: "secret", resave: false, saveUninitialized: false }));
+// Initialize session
+app.use(passport.session());
 
 app.use("/", indexRouter);
 app.use("/sign-up", signUpRouter);
