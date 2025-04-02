@@ -1,5 +1,5 @@
 const { body, validationResult } = require("express-validator");
-const passport = require("../config/auth");
+const { passport } = require("../config/auth");
 
 const validateUser = [
   body("username").trim().isEmail().withMessage(`Must be a valid email`),

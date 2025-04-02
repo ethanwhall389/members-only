@@ -3,6 +3,7 @@ const path = require("path");
 const passport = require("passport");
 const session = require("express-session");
 const flash = require("connect-flash");
+const { ensureAuthenticated } = require("./config/auth");
 
 const indexRouter = require("./routes/indexRouter");
 const signUpRouter = require("./routes/signUpRouter");
@@ -31,8 +32,11 @@ app.use(passport.session());
 app.use("/", indexRouter);
 app.use("/sign-up", signUpRouter);
 app.use("/log", authRouter);
-app.use("/join-club", joinClubRouter);
-app.use("/message", messageRouter);
+app.use("/join-club", ensureAuthenticated, joinClubRouter);
+app.use("/message", ensureAuthenticated, messageRouter);
+app.use("/unauthorized", (req, res) =>
+  res.status(401).render("pages/unauthorized")
+);
 //404 route
 app.use((req, res) => res.status(404).render("pages/404"));
 

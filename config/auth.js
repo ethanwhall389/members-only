@@ -3,6 +3,14 @@ const LocalStrategy = require("passport-local").Strategy;
 const queries = require("../models/queries");
 const bcrypt = require("bcryptjs");
 
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    res.redirect("/unauthorized");
+  }
+}
+
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
@@ -34,4 +42,7 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-module.exports = passport;
+module.exports = {
+  passport,
+  ensureAuthenticated,
+};
