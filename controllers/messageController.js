@@ -6,7 +6,8 @@ const messagePageGet = async (req, res) => {
 
 const messagePost = async (req, res) => {
   const { title, body } = req.body;
-  await queries.createMessage(title, body);
+  const user = await req.user;
+  await queries.createMessage(title, body, user.id);
   res.redirect("/");
 };
 

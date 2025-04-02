@@ -11,6 +11,16 @@ function ensureAuthenticated(req, res, next) {
   }
 }
 
+async function ensureMessageAuthor(req, res, next) {
+  const messageId = req.params.messageId;
+  if (req.isAuthenticated()) {
+    const user = await req.user;
+    const messageAuthorId = await queries.getMessageAuthorId(messageId);
+    if (user.id === messageAuthorId) return next();
+  }
+  res.redirect("/unauthorized");
+}
+
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
@@ -45,4 +55,5 @@ passport.deserializeUser(async (id, done) => {
 module.exports = {
   passport,
   ensureAuthenticated,
+  ensureMessageAuthor,
 };

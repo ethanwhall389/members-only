@@ -24,7 +24,9 @@
   <% } else { %>
   <h3>No messages have been posted</h3>
   <% } %>
+  <% if (locals.user) { %>
   <a href="/message/new"><button>New Message</button></a>
+  <% } %>
 </body>
 
 </html>
